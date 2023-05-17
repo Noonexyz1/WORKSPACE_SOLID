@@ -1,0 +1,290 @@
+Noone
+que es la I en Solid en JAva
+
+"Solid" en Java hace referencia a los principios SOLID de diseño de software. La "I" en SOLID se refiere al principio
+de "Interface Segregation" (Segregación de Interfaces en español), que sostiene que los clientes de una interfaz deben
+estar expuestos solo a los métodos que necesitan, en lugar de obligarlos a implementar métodos que no necesitan.
+
+Este principio se enfoca en la creación de interfaces cohesivas y con responsabilidades bien definidas, para evitar la
+creación de interfaces monolíticas que contengan muchos métodos diferentes y poco relacionados entre sí.
+
+La aplicación de este principio ayuda a crear código más mantenible, flexible y escalable, ya que permite que los
+componentes del software puedan ser modificados de manera aislada y sin afectar a otros componentes.
+Noone
+dame un ejemplo en JAva
+
+Claro, aquí te muestro un ejemplo sencillo en Java de cómo aplicar el principio de Interface Segregation:
+
+Supongamos que tenemos una interfaz llamada "IAnimal" que define los métodos que deben implementar todos los animales:
+
+	csharp
+
+	public interface IAnimal {
+	    public void comer();
+	    public void dormir();
+	    public void moverse();
+	    public void sonar();
+	}
+
+En este caso, la interfaz contiene cuatro métodos que definen las acciones que pueden realizar los animales. Sin embargo,
+este diseño no es muy adecuado si consideramos que no todos los animales necesitan implementar todas estas acciones.
+Por ejemplo, un pez no puede moverse en tierra y una serpiente no puede sonar.
+
+Para aplicar el principio de Interface Segregation, podemos dividir la interfaz en interfaces más pequeñas y
+especializadas, de modo que cada animal solo implemente las interfaces que necesita. Por ejemplo:
+
+	csharp
+
+	public interface IComedor {
+	    public void comer();
+	}
+
+	public interface IDormilon {
+	    public void dormir();
+	}
+
+	public interface IMovible {
+	    public void moverse();
+	}
+
+	public interface ISonoro {
+	    public void sonar();
+	}
+
+Ahora, podemos crear clases para los distintos tipos de animales, que implementen solo las interfaces que correspondan a sus capacidades:
+
+	kotlin
+
+	public class Perro implements IComedor, IDormilon, IMovible, ISonoro {
+	    // implementación de los métodos
+	}
+
+	public class Serpiente implements IComedor, IDormilon, IMovible {
+	    // implementación de los métodos
+	}
+
+	public class Pez implements IComedor, IDormilon, IMovible {
+	    // implementación de los métodos
+	}
+
+De esta forma, cada clase implementa solo las interfaces que necesita, lo que hace que el diseño sea más cohesivo y fácil de mantener.
+Noone
+gracias
+
+De nada, ¡si necesitas ayuda en algo más, no dudes en preguntar!
+Noone
+ahora esas interfaces segregadas que me enviaste como ejemplo, se parece una interfaz funcional
+
+Tienes razón, las interfaces que te mostré en el ejemplo anterior pueden parecerse a las interfaces funcionales de Java.
+Esto se debe a que las interfaces funcionales también tienen la característica de tener un único método abstracto, lo que
+las hace útiles para implementar patrones de diseño y programación funcional.
+
+En el ejemplo que te mostré, las interfaces segregadas tienen un único método abstracto cada una, lo que las hace
+candidatas para ser interfaces funcionales en Java. De hecho, si quisieras hacerlo, podrías marcar cada una de ellas
+con la anotación @FunctionalInterface para indicar que son interfaces funcionales.
+
+	csharp
+
+	@FunctionalInterface
+	public interface IComedor {
+	    public void comer();
+	}
+
+	@FunctionalInterface
+	public interface IDormilon {
+	    public void dormir();
+	}
+
+	@FunctionalInterface
+	public interface IMovible {
+	    public void moverse();
+	}
+
+	@FunctionalInterface
+	public interface ISonoro {
+	    public void sonar();
+	}
+
+Al marcarlas con esta anotación, el compilador de Java verificará que la interfaz tenga solo un método abstracto, y te
+avisará en caso contrario. Esto te permite asegurarte de que estás usando correctamente las interfaces funcionales en tu código.
+Noone
+y como podria usarlo en el ejemplo que me enviaste, porque no veo la necesidad, dame un ejemplo porfavor o alguna idea
+y porque y como o algo asi
+
+Claro, te puedo dar un ejemplo de cómo podrías utilizar estas interfaces como interfaces funcionales. Supongamos que
+queremos definir una serie de funciones que realicen las acciones definidas en las interfaces IComedor, IDormilon, IMovible e ISonoro.
+En lugar de crear clases que implementen estas interfaces, podemos crear funciones que las acepten como parámetros:
+
+	typescript
+
+	public class AnimalActions {
+	    public static void hacerComer(IComedor animal) {
+		animal.comer();
+	    }
+	    
+	    public static void hacerDormir(IDormilon animal) {
+		animal.dormir();
+	    }
+	    
+	    public static void hacerMover(IMovible animal) {
+		animal.moverse();
+	    }
+	    
+	    public static void hacerSonar(ISonoro animal) {
+		animal.sonar();
+	    }
+	}
+
+En este caso, AnimalActions es una clase con métodos estáticos que aceptan como parámetro una interfaz correspondiente
+a la acción que se quiere realizar. Cada método llama al método correspondiente de la interfaz, que es implementado por
+una clase específica.
+
+Ahora, podemos usar estas funciones para interactuar con distintos tipos de animales, sin necesidad de crear una clase para cada uno:
+
+	scss
+
+	public class Main {
+	    public static void main(String[] args) {
+		Perro perro = new Perro();
+		AnimalActions.hacerComer(perro);
+		AnimalActions.hacerDormir(perro);
+		AnimalActions.hacerMover(perro);
+		AnimalActions.hacerSonar(perro);
+		
+		Serpiente serpiente = new Serpiente();
+		AnimalActions.hacerComer(serpiente);
+		AnimalActions.hacerDormir(serpiente);
+		AnimalActions.hacerMover(serpiente);
+		
+		Pez pez = new Pez();
+		AnimalActions.hacerComer(pez);
+		AnimalActions.hacerDormir(pez);
+		AnimalActions.hacerMover(pez);
+	    }
+	}
+
+En este caso, estamos usando las funciones AnimalActions.hacerComer(), AnimalActions.hacerDormir(), AnimalActions.hacerMover() y
+AnimalActions.hacerSonar() para interactuar con distintos tipos de animales, sin necesidad de crear clases específicas para cada uno.
+Además, al aceptar interfaces como parámetros, podemos hacer uso del polimorfismo en Java y trabajar con distintas
+implementaciones de las mismas interfaces.
+Noone
+pero comer(), por ejemplo, no veo que esté implementado
+
+Tienes razón, en mi ejemplo anterior no se implementó el método comer() para las clases Perro, Serpiente y Pez. Disculpa por el error.
+
+Aquí te muestro un ejemplo de cómo podrías implementar el método comer() en cada una de las clases:
+
+	csharp
+
+	public class Perro implements IComedor {
+	    public void comer() {
+		System.out.println("El perro está comiendo.");
+	    }
+	}
+
+	public class Serpiente implements IComedor {
+	    public void comer() {
+		System.out.println("La serpiente está comiendo.");
+	    }
+	}
+
+	public class Pez implements IComedor {
+	    public void comer() {
+		System.out.println("El pez está comiendo.");
+	    }
+	}
+
+De esta manera, cada clase implementa el método comer() de la interfaz IComedor. Ahora, cuando se llama a la función
+AnimalActions.hacerComer(), se ejecutará el método comer() correspondiente de cada clase.
+Noone
+gracias
+
+De nada, ¡si tienes alguna otra pregunta, no dudes en preguntar!
+Noone
+AnimalActions.hacerComer(perro::comer);    puedo hacer eso?
+
+Sí, puedes hacer eso. La expresión perro::comer se llama una referencia a método, y se utiliza para referenciar un
+método sin llamarlo directamente. En este caso, la referencia a método perro::comer hace referencia al método comer() de la clase Perro.
+
+Si pasas perro::comer como argumento a AnimalActions.hacerComer(), entonces el método comer() de la clase Perro se
+ejecutará cuando se llame al método hacerComer().
+
+Aquí te muestro un ejemplo:
+
+	typescript
+
+	public class Main {
+	    public static void main(String[] args) {
+		Perro perro = new Perro();
+		AnimalActions.hacerComer(perro::comer);
+	    }
+	}
+
+En este caso, se está pasando la referencia a método perro::comer como argumento a AnimalActions.hacerComer(). Cuando
+se llame a hacerComer(), se ejecutará el método comer() de la clase Perro.
+Noone
+AnimalActions.hacerComer(Syste.out.println("El perro come"));  te parece bien eso?
+
+No, eso no funcionaría. En este caso, estás pasando una expresión lambda que imprime el mensaje "El perro come"
+directamente como argumento a AnimalActions.hacerComer(). Sin embargo, la función hacerComer() espera recibir una
+referencia a método que tenga la misma firma que IComedor::comer(), es decir, un método que no tome argumentos y no devuelva nada.
+
+Si quieres imprimir el mensaje "El perro come" al hacer que un perro coma, tendrías que implementar el método comer() en
+la clase Perro y poner la lógica de impresión del mensaje allí.
+
+Aquí te muestro un ejemplo de cómo podrías implementar el método comer() en la clase Perro para imprimir el mensaje:
+
+	csharp
+
+	public class Perro implements IComedor {
+	    public void comer() {
+		System.out.println("El perro come");
+	    }
+	}
+
+Luego, podrías pasar la referencia a método Perro::comer como argumento a AnimalActions.hacerComer() para que se ejecute
+el método comer() de la clase Perro:
+
+	scss
+
+	Perro perro = new Perro();
+	AnimalActions.hacerComer(perro::comer);
+
+De esta manera, cuando se llame a hacerComer(), se ejecutará el método comer() de la clase Perro, que imprimirá el
+mensaje "El perro come".
+Noone
+eso es porque el metodo comer() ya se encuentra implementado verdad
+
+Exactamente, el método comer() ya está implementado en la clase Perro, por lo que puedes pasar la referencia a este
+método como argumento a AnimalActions.hacerComer().
+
+Debes tener en cuenta que la referencia a método Perro::comer apunta al método comer() implementado en la clase Perro.
+Si por alguna razón quisieras pasar la referencia a método de alguna otra clase que también implemente IComedor, deberías
+pasar la referencia al método comer() de esa otra clase.
+
+En resumen, siempre debes asegurarte de que la referencia a método que pasas como argumento a AnimalActions.hacerComer() apunte
+a un método que tenga la misma firma que IComedor::comer().
+Noone
+si no estaria implementado como seria con lambada?
+
+Si no tuvieras una implementación del método comer() en la clase Perro y quisieras imprimir el mensaje "El perro come" usando
+una expresión lambda, podrías hacer lo siguiente:
+
+	scss
+
+	Perro perro = new Perro();
+	AnimalActions.hacerComer(() -> System.out.println("El perro come"));
+
+En este caso, se está pasando una expresión lambda que no toma argumentos y que imprime el mensaje "El perro come" directamente
+como argumento a AnimalActions.hacerComer(). Cuando se llame a hacerComer(), se ejecutará la expresión lambda, que imprimirá el mensaje.
+
+Sin embargo, debes tener en cuenta que esto no estaría utilizando la implementación de IComedor en la clase Perro, sino
+ que simplemente estarías ejecutando una expresión lambda que imprime un mensaje. Si quieres que la implementación de
+ IComedor en la clase Perro se ejecute al hacer que un perro coma, deberías implementar el método comer() en la clase Perro y pasar
+ la referencia a este método como argumento a AnimalActions.hacerComer().
+Noone
+gracias, ya entendi, espero no olvidarlo
+
+¡De nada! Me alegra haber sido de ayuda. Si tienes alguna otra pregunta, no dudes en preguntar. ¡Estoy aquí para ayudarte!
+Y recuerda, la práctica hace al maestro, así que te sugiero que sigas practicando para que puedas retener la información
+y no se te olvide. ¡Mucho éxito!

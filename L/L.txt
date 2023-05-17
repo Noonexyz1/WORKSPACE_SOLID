@@ -1,0 +1,108 @@
+Noone
+que significa la L en los principios solid en java
+
+En el contexto de los principios SOLID en Java, la letra "L" se refiere al principio de sustitución de Liskov
+(Liskov Substitution Principle, en inglés).
+
+Este principio establece que los objetos de una clase hija deben ser capaces de sustituir a los objetos de su clase padre
+sin afectar negativamente la integridad del programa. En otras palabras, si una clase A es una superclase de una clase B,
+ cualquier instancia de la clase A debe poder ser reemplazada por una instancia de la clase B sin alterar el comportamiento del programa.
+
+Este principio se considera fundamental para garantizar la interoperabilidad y la reutilización del código en un sistema
+orientado a objetos. Al seguir el principio de sustitución de Liskov, se pueden crear jerarquías de clases más flexibles
+y escalables, lo que facilita la evolución del sistema a lo largo del tiempo.
+Noone
+entonces eso me habilita para hacer polimorfismo?
+
+Sí, al seguir el principio de sustitución de Liskov, se habilita el uso del polimorfismo en Java.
+
+El polimorfismo permite que un objeto pueda tomar diferentes formas y comportarse de diferentes maneras según el contexto
+ en el que se utilice. En Java, el polimorfismo se logra a través de la herencia y la implementación de interfaces.
+ Al utilizar el principio de sustitución de Liskov para diseñar la jerarquía de clases, se garantiza que los objetos
+  puedan ser tratados de manera uniforme a través de la clase base y que los objetos de las clases derivadas puedan ser
+  utilizados en lugar de los objetos de la clase base.
+
+De esta forma, se puede utilizar el polimorfismo en Java para crear código más flexible y reusable, lo que permite
+adaptarse mejor a los cambios en los requisitos del sistema y mejorar la mantenibilidad del código a lo largo del tiempo.
+Noone
+dame un ejemplo en java
+
+Por supuesto, aquí te dejo otro ejemplo en Java que ilustra el principio de sustitución de Liskov:
+
+Supongamos que tenemos una interfaz Pagable que representa un objeto que se puede pagar, y que queremos crear dos
+clases que implementen esta interfaz: Producto y Servicio.
+
+	java
+
+	public interface Pagable {
+	    double getPrecio();
+	}
+
+	public class Producto implements Pagable {
+	    private String nombre;
+	    private double precio;
+	    
+	    public Producto(String nombre, double precio) {
+            this.nombre = nombre;
+            this.precio = precio;
+	    }
+	    
+	    @Override
+	    public double getPrecio() {
+		    return precio;
+	    }
+	}
+
+	public class Servicio implements Pagable {
+	    private String descripcion;
+	    private double costoHora;
+	    private int horas;
+	    
+	    public Servicio(String descripcion, double costoHora, int horas) {
+            this.descripcion = descripcion;
+            this.costoHora = costoHora;
+            this.horas = horas;
+	    }
+	    
+	    @Override
+	    public double getPrecio() {
+		    return costoHora * horas;
+	    }
+	}
+
+En este ejemplo, la interfaz Pagable establece un contrato común que deben cumplir los objetos que se pueden pagar.
+Las clases Producto y Servicio implementan esta interfaz y proporcionan su propia implementación del método getPrecio().
+
+De esta forma, podemos tratar los objetos Producto y Servicio de manera uniforme a través de la interfaz Pagable.
+Por ejemplo, podríamos crear una lista de objetos Pagable y agregar tanto productos como servicios a ella:
+
+	java
+
+	List<Pagable> lista = new ArrayList<>();
+	lista.add(new Producto("Libro", 20.0));
+	lista.add(new Servicio("Mantenimiento", 15.0, 2));
+
+Al utilizar el polimorfismo a través de la interfaz Pagable, podemos crear código más flexible y reutilizable que nos
+ permita tratar diferentes tipos de objetos de manera uniforme.
+Noone
+gracias, se parece un poco al de Open/Close de java o me equivoco?
+
+Sí, es correcto. El principio de sustitución de Liskov se relaciona estrechamente con otros principios SOLID, como el
+ principio de Open/Closed (OCP, por sus siglas en inglés) en Java.
+
+El principio de Open/Closed establece que las entidades de software (clases, módulos, etc.) deben estar abiertas para
+ la extensión pero cerradas para la modificación. En otras palabras, el código existente no debe ser modificado para
+ agregar nuevas funcionalidades, sino que se deben crear nuevas clases que extiendan o implementen el código existente.
+
+El principio de sustitución de Liskov se aplica en este contexto al garantizar que las clases que extienden el código
+existente se comporten de la misma manera que las clases base, para que el código existente pueda seguir utilizándose
+sin modificarlo. De esta forma, se pueden agregar nuevas funcionalidades al sistema sin modificar el código existente,
+siguiendo el principio de Open/Closed.
+
+En resumen, ambos principios (sustitución de Liskov y Open/Closed) se complementan y se aplican en conjunto para crear
+un código más flexible, escalable y fácil de mantener en Java.
+Noone
+gracias
+
+De nada, ¡siempre estoy aquí para ayudarte en lo que necesites! Si tienes más preguntas, no dudes en hacerlas.
+

@@ -1,0 +1,54 @@
+Noone
+dame un ejemplo en java que cumpla los cuatro principios de SOLID
+
+Aquí te presento un ejemplo en Java que cumple con los cuatro principios de SOLID. Este ejemplo utiliza el patrón de diseño "Dependency Inversion Principle" (Principio de Inversión de Dependencia) para lograrlo:
+
+	java
+
+	public interface PaymentMethod {
+	    void pay(double amount);
+	}
+
+	public class CashPayment implements PaymentMethod {
+	    public void pay(double amount) {
+		System.out.println("Paying " + amount + " in cash.");
+	    }
+	}
+
+	public class CreditCardPayment implements PaymentMethod {
+	    public void pay(double amount) {
+		System.out.println("Paying " + amount + " with credit card.");
+	    }
+	}
+
+	public class Order {
+	    private final PaymentMethod paymentMethod;
+
+	    public Order(PaymentMethod paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	    }
+
+	    public void processOrder(double amount) {
+		paymentMethod.pay(amount);
+	    }
+	}
+
+	public class Main {
+	    public static void main(String[] args) {
+		PaymentMethod paymentMethod = new CreditCardPayment();
+		Order order = new Order(paymentMethod);
+		order.processOrder(100.0);
+	    }
+	}
+
+Este ejemplo cumple con los cuatro principios de SOLID de la siguiente manera:
+
+    Principio de Responsabilidad Única (Single Responsibility Principle): Cada clase tiene una única responsabilidad. La interfaz PaymentMethod define la forma en que se procesan los pagos. Las clases CashPayment y CreditCardPayment implementan esta interfaz y se encargan de procesar los pagos en efectivo y con tarjeta de crédito, respectivamente. La clase Order se encarga de procesar los pedidos y utiliza la interfaz PaymentMethod para realizar los pagos. La clase Main es la clase principal que se encarga de crear los objetos y ejecutar el programa.
+
+    Principio Abierto-Cerrado (Open-Closed Principle): Las clases están abiertas para la extensión pero cerradas para la modificación. El código no necesita ser modificado para agregar nuevos métodos de pago. Solo se necesita crear una nueva clase que implemente la interfaz PaymentMethod.
+
+    Principio de Sustitución de Liskov (Liskov Substitution Principle): Las instancias de una clase pueden ser sustituidas por instancias de una subclase sin afectar la funcionalidad del programa. Las clases CashPayment y CreditCardPayment son subclases de la interfaz PaymentMethod. La clase Order no necesita conocer la implementación exacta de la clase PaymentMethod, solo necesita saber que se puede llamar al método pay().
+
+    Principio de Segregación de Interfaz (Interface Segregation Principle): Las interfaces deben ser específicas y no deben tener métodos que no se usen. La interfaz PaymentMethod solo tiene un método pay(), que se utiliza para procesar los pagos. Esto hace que la interfaz sea simple y fácil de entender.
+
+
