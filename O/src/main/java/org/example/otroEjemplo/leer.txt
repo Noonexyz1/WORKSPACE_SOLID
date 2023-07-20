@@ -1,0 +1,50 @@
+Otra analogía para entender el principio de abierto/cerrado podría ser la de una caja de herramientas. Imagina que tienes una caja de herramientas con diferentes herramientas para realizar diferentes tareas. Si necesitas realizar una nueva tarea que requiere una herramienta que no tienes en tu caja, puedes simplemente comprar la herramienta y agregarla a tu caja sin tener que modificar las herramientas existentes.
+
+De manera similar, en la programación orientada a objetos, las clases deben estar diseñadas de tal manera que puedan ser extendidas sin tener que modificar su código fuente. Esto se logra mediante el uso de abstracciones y el diseño de interfaces bien definidas. De esta manera, si en el futuro se necesita agregar nueva funcionalidad a una clase, simplemente se puede crear una nueva subclase que implemente esa funcionalidad sin tener que modificar la clase original.
+
+
+
+
+Sí, has entendido correctamente. El principio de abierto/cerrado establece que las entidades de software (como las clases) deben estar abiertas para su extensión, pero cerradas para su modificación. Esto significa que, si deseas agregar una nueva funcionalidad a una clase, en lugar de modificar el código fuente de la clase existente, puedes crear una nueva subclase que herede de la clase original y agregar la nueva funcionalidad allí.
+
+Por “funcionalidad” me refiero a cualquier comportamiento o característica que desees agregar a la clase. Esto podría incluir nuevos métodos, nuevas propiedades o nuevas formas de procesar datos. Al crear una nueva subclase y agregar la nueva funcionalidad allí, puedes extender el comportamiento de la clase original sin tener que modificar su código fuente.
+
+
+
+Por otro lado, las interfaces son una forma de definir contratos para el comportamiento de una clase. Al implementar una interfaz, una clase se compromete a proporcionar implementaciones para todos los métodos definidos en la interfaz. De esta manera, puedes diseñar tus clases para que dependan de interfaces en lugar de implementaciones concretas, lo que te permite cambiar el comportamiento de tu código en tiempo de ejecución simplemente cambiando la implementación concreta que se está utilizando.
+
+Ambas técnicas (herencia e interfaces) pueden ser utilizadas para aplicar el principio de abierto/cerrado y extender el comportamiento de una clase sin tener que modificar su código fuente.
+
+
+
+Una analogía para entender la diferencia entre implementar una interfaz y heredar de una clase en el contexto del principio de abierto/cerrado podría ser la de un equipo de música. Imagina que tienes un equipo de música con diferentes componentes, como un reproductor de CD, un amplificador y unos altavoces. Cada componente tiene una función específica y se conecta al resto del equipo mediante cables.
+
+Si deseas agregar una nueva funcionalidad a tu equipo de música, como la capacidad de reproducir música desde un dispositivo Bluetooth, podrías hacerlo de dos maneras: comprando un nuevo componente que implemente esa funcionalidad (como un adaptador Bluetooth) o modificando uno de los componentes existentes para agregar esa funcionalidad (como añadiendo un receptor Bluetooth al amplificador).
+
+La primera opción (comprar un nuevo componente) sería equivalente a implementar una interfaz en Java. Al implementar una interfaz, una clase se compromete a proporcionar implementaciones para todos los métodos definidos en la interfaz. De esta manera, puedes agregar nueva funcionalidad a tu código simplemente creando una nueva clase que implemente la interfaz deseada.
+
+La segunda opción (modificar un componente existente) sería equivalente a heredar de una clase en Java. Al heredar de una clase, una subclase puede reutilizar y extender el comportamiento de la clase base. De esta manera, puedes agregar nueva funcionalidad a tu código creando una nueva subclase que herede de la clase original y sobrescribiendo o añadiendo nuevos métodos.
+
+Ambas opciones te permiten agregar nueva funcionalidad a tu código sin tener que modificar el código fuente de las clases existentes, lo que está en línea con el principio de abierto/cerrado.
+
+
+
+------------------------IMPORTANTE----------------------------
+Si la interfaz Pagable necesita ser modificada para agregar nuevos métodos de pago, como transacciones bancarias y envío de dinero por correo, una forma de hacerlo sin violar el principio de abierto/cerrado sería crear nuevas interfaces que extiendan la interfaz Pagable. Por ejemplo, podrías crear una interfaz PagablePorTransaccionBancaria y una interfaz PagablePorCorreo que extiendan la interfaz Pagable y agreguen nuevos métodos para realizar pagos mediante transacciones bancarias y envío de dinero por correo, respectivamente.
+
+Luego, en lugar de modificar la clase Empleado directamente, podrías crear nuevas subclases que implementen estas nuevas interfaces. Por ejemplo, podrías crear una subclase EmpleadoPorTransaccionBancaria que implemente la interfaz PagablePorTransaccionBancaria y proporcione una implementación para el método de pago por transacción bancaria. De manera similar, podrías crear una subclase EmpleadoPorCorreo que implemente la interfaz PagablePorCorreo y proporcione una implementación para el método de pago por correo.
+
+De esta manera, podrías agregar nuevas formas de pago a tu sistema sin tener que modificar el código fuente de la clase Empleado o de la interfaz Pagable. En su lugar, simplemente estarías extendiendo el comportamiento existente mediante herencia e interfaces, lo que está en línea con el principio de abierto/cerrado.
+
+
+
+--------------IMPORTANTE-----------------------------------------------------
+Sí, una solución para permitir que la clase Contratista tenga acceso a las nuevas formas de pago sería crear una nueva subclase que herede de Contratista e implemente las interfaces PagablePorTransaccionBancaria y PagablePorCorreo. Por ejemplo, podrías crear una clase ContratistaPagablePorTransaccionBancariaYCorreo que herede de Contratista e implemente ambas interfaces. De esta manera, la nueva subclase tendría acceso a todas las formas de pago definidas en las interfaces, así como a cualquier otra funcionalidad definida en la clase Contratista.
+
+De esta manera, hemos agregado nuevas formas de pago a la clase Contratista sin tener que modificar su código fuente.
+
+la instancia seria: 
+Empleado emp = new ContratistaPagablePorTransaccionBancariaYCorreo("Juan", 50);
+emp.pagar(1000);
+((PagablePorTransaccionBancaria) emp).pagarPorTransaccionBancaria(500, "123456789");
+((PagablePorCorreo) emp).pagarPorCorreo(250, "Calle Falsa 123");
